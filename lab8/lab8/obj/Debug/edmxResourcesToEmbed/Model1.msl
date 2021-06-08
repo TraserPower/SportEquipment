@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Sport_Equipment">
+    <EntitySetMapping Name="Firms">
+      <EntityTypeMapping TypeName="Model.Firm">
+        <MappingFragment StoreEntitySet="Firm">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EmployeeCount" ColumnName="EmployeeCount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OwnEquipments">
+      <EntityTypeMapping TypeName="Model.OwnEquipment">
+        <MappingFragment StoreEntitySet="OwnEquipment">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SportsmanID" ColumnName="SportsmanID" />
+          <ScalarProperty Name="EquipmentID" ColumnName="EquipmentID" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SportEquipments">
+      <EntityTypeMapping TypeName="Model.SportEquipment">
+        <MappingFragment StoreEntitySet="SportEquipment">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="FirmID" ColumnName="FirmID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sportsmen">
+      <EntityTypeMapping TypeName="Model.Sportsman">
+        <MappingFragment StoreEntitySet="Sportsman">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Registers">
+      <EntityTypeMapping TypeName="Model.Register">
+        <MappingFragment StoreEntitySet="Register">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+          <ScalarProperty Name="Salt" ColumnName="Salt" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Firm">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmployeeCount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OwnEquipment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="SportsmanID" Type="int" Nullable="false" />
+          <Property Name="EquipmentID" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Register">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="PasswordHash" Type="nchar" MaxLength="64" Nullable="false" />
+          <Property Name="Salt" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="isAdmin" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SportEquipment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="FirmID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sportsman">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Age" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_OwnEquipment_Sport Equipment">
+          <End Role="SportEquipment" Type="Self.SportEquipment" Multiplicity="1" />
+          <End Role="OwnEquipment" Type="Self.OwnEquipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SportEquipment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OwnEquipment">
+              <PropertyRef Name="EquipmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OwnEquipment_Sportsman">
+          <End Role="Sportsman" Type="Self.Sportsman" Multiplicity="1" />
+          <End Role="OwnEquipment" Type="Self.OwnEquipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sportsman">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OwnEquipment">
+              <PropertyRef Name="SportsmanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sport Equipment_Firm">
+          <End Role="Firm" Type="Self.Firm" Multiplicity="1" />
+          <End Role="SportEquipment" Type="Self.SportEquipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firm">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SportEquipment">
+              <PropertyRef Name="FirmID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ModelContainer">
+          <EntitySet Name="Firm" EntityType="Self.Firm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OwnEquipment" EntityType="Self.OwnEquipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Register" EntityType="Self.Register" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SportEquipment" EntityType="Self.SportEquipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sportsman" EntityType="Self.Sportsman" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_OwnEquipment_Sport Equipment" Association="Self.FK_OwnEquipment_Sport Equipment">
+            <End Role="SportEquipment" EntitySet="SportEquipment" />
+            <End Role="OwnEquipment" EntitySet="OwnEquipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OwnEquipment_Sportsman" Association="Self.FK_OwnEquipment_Sportsman">
+            <End Role="Sportsman" EntitySet="Sportsman" />
+            <End Role="OwnEquipment" EntitySet="OwnEquipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sport Equipment_Firm" Association="Self.FK_Sport Equipment_Firm">
+            <End Role="Firm" EntitySet="Firm" />
+            <End Role="SportEquipment" EntitySet="SportEquipment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Firm">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmployeeCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SportEquipments" Relationship="Self.FK_Sport_Equipment_Firm" FromRole="Firm" ToRole="SportEquipment" />
+        </EntityType>
+        <EntityType Name="OwnEquipment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="SportsmanID" Type="Int32" Nullable="false" />
+          <Property Name="EquipmentID" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SportEquipment" Relationship="Self.FK_OwnEquipment_Sport_Equipment" FromRole="OwnEquipment" ToRole="SportEquipment" />
+          <NavigationProperty Name="Sportsman" Relationship="Self.FK_OwnEquipment_Sportsman" FromRole="OwnEquipment" ToRole="Sportsman" />
+        </EntityType>
+        <EntityType Name="SportEquipment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="FirmID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Firm" Relationship="Self.FK_Sport_Equipment_Firm" FromRole="SportEquipment" ToRole="Firm" />
+          <NavigationProperty Name="OwnEquipments" Relationship="Self.FK_OwnEquipment_Sport_Equipment" FromRole="SportEquipment" ToRole="OwnEquipment" />
+        </EntityType>
+        <EntityType Name="Sportsman">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OwnEquipments" Relationship="Self.FK_OwnEquipment_Sportsman" FromRole="Sportsman" ToRole="OwnEquipment" />
+        </EntityType>
+        <Association Name="FK_Sport_Equipment_Firm">
+          <End Role="Firm" Type="Self.Firm" Multiplicity="1" />
+          <End Role="SportEquipment" Type="Self.SportEquipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firm">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SportEquipment">
+              <PropertyRef Name="FirmID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OwnEquipment_Sport_Equipment">
+          <End Role="SportEquipment" Type="Self.SportEquipment" Multiplicity="1" />
+          <End Role="OwnEquipment" Type="Self.OwnEquipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SportEquipment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OwnEquipment">
+              <PropertyRef Name="EquipmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OwnEquipment_Sportsman">
+          <End Role="Sportsman" Type="Self.Sportsman" Multiplicity="1" />
+          <End Role="OwnEquipment" Type="Self.OwnEquipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sportsman">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OwnEquipment">
+              <PropertyRef Name="SportsmanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Sport_Equipment" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Firms" EntityType="Self.Firm" />
+          <EntitySet Name="OwnEquipments" EntityType="Self.OwnEquipment" />
+          <EntitySet Name="SportEquipments" EntityType="Self.SportEquipment" />
+          <EntitySet Name="Sportsmen" EntityType="Self.Sportsman" />
+          <AssociationSet Name="FK_Sport_Equipment_Firm" Association="Self.FK_Sport_Equipment_Firm">
+            <End Role="Firm" EntitySet="Firms" />
+            <End Role="SportEquipment" EntitySet="SportEquipments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OwnEquipment_Sport_Equipment" Association="Self.FK_OwnEquipment_Sport_Equipment">
+            <End Role="SportEquipment" EntitySet="SportEquipments" />
+            <End Role="OwnEquipment" EntitySet="OwnEquipments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OwnEquipment_Sportsman" Association="Self.FK_OwnEquipment_Sportsman">
+            <End Role="Sportsman" EntitySet="Sportsmen" />
+            <End Role="OwnEquipment" EntitySet="OwnEquipments" />
+          </AssociationSet>
+          <EntitySet Name="Registers" EntityType="Model.Register" />
+        </EntityContainer>
+        <EntityType Name="Register">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="64" FixedLength="true" Unicode="true" />
+          <Property Name="Salt" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="isAdmin" Type="Boolean" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Sport_Equipment">
+          <EntitySetMapping Name="Firms">
+            <EntityTypeMapping TypeName="Model.Firm">
+              <MappingFragment StoreEntitySet="Firm">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EmployeeCount" ColumnName="EmployeeCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OwnEquipments">
+            <EntityTypeMapping TypeName="Model.OwnEquipment">
+              <MappingFragment StoreEntitySet="OwnEquipment">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SportsmanID" ColumnName="SportsmanID" />
+                <ScalarProperty Name="EquipmentID" ColumnName="EquipmentID" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SportEquipments">
+            <EntityTypeMapping TypeName="Model.SportEquipment">
+              <MappingFragment StoreEntitySet="SportEquipment">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="FirmID" ColumnName="FirmID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sportsmen">
+            <EntityTypeMapping TypeName="Model.Sportsman">
+              <MappingFragment StoreEntitySet="Sportsman">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Registers">
+            <EntityTypeMapping TypeName="Model.Register">
+              <MappingFragment StoreEntitySet="Register">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
